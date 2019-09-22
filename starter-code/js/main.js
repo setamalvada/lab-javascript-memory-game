@@ -65,7 +65,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
   memoryGame.pickedCards.push(card)
   
 
-
+  memoryGame.pairsClicked++
+  document.getElementById("pairs_clicked").innerHTML=memoryGame.pairsClicked;
 
 console.log(memoryGame.pickedCards)
 
@@ -88,12 +89,16 @@ if(memoryGame.pickedCards.length==2){
  else{
   
   memoryGame.pairsGuessed++
+  const pairsGuessed =memoryGame.pairsGuessed-1
   memoryGame.pickedCards.pop()
     memoryGame.pickedCards.pop()
+  document.getElementById("pairs_guessed").innerHTML=pairsGuessed
     
  }
  if(memoryGame.pairsGuessed===24){
    alert("Game Finished")
+   location.reload()
+
  }
 
 }
