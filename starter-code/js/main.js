@@ -26,26 +26,88 @@ const cards = [
 ];
 
 const memoryGame = new MemoryGame(cards);
-
+//Mezclar las cartas
+memoryGame.shuffleCards();
 document.addEventListener("DOMContentLoaded", function(event) { 
+
   let html = '';
   memoryGame.cards.forEach(pic => {
     html += `<div class="card" data-card-name="${pic.name}">`;
-    html += `<div class="back" name="${pic.img}"></div>`;
-    html += `<div class="front" style="background: url(img/${pic.img}) no-repeat"></div>`;
+    html += `<div class="back" id="cardsback" name="${pic.img}"></div>`;
+    html += `<div class="front" id="cardsfront" style="background: url(img/${pic.img}) no-repeat"></div>`;
     html += `</div>`;
   });
 
   // Add all the divs to the HTML
   document.querySelector('#memory_board').innerHTML = html;
-
+//document.getElementById("cardsfront").style.visibility='hidden'
   // Bind the click event of each element to a function
+  
+
+  
+  
   document.querySelectorAll('.back').forEach( card => {
+	
     card.onclick = function() {
-      // TODO: write some code here
-      console.log('Card clicked: ', card);
+	 // TODO: write some code here
+  
+
+
+  
+	  const imageCard = card.parentElement.querySelector(".front");
+	  imageCard.removeAttribute("class");
+	  imageCard.setAttribute("class", "back");
+	  card.removeAttribute("class");
+    card.setAttribute("class", "front");
+
+    
+ 
+  memoryGame.pickedCards.push(card)
+  
+
+
+
+console.log(memoryGame.pickedCards)
+
+if(memoryGame.pickedCards.length==2){
+ if(memoryGame.checkIfPair(memoryGame.pickedCards[0].outerHTML,memoryGame.pickedCards[1].outerHTML)===false){
+  
+
+  flipBack(memoryGame.pickedCards[0])
+  flipBack(memoryGame.pickedCards[1])
+
+   
+    memoryGame.pickedCards.pop()
+    memoryGame.pickedCards.pop()
+    
+
+  
+
+        
+ }
+ else{
+  
+  memoryGame.pairsGuessed++
+  memoryGame.pickedCards.pop()
+    memoryGame.pickedCards.pop()
+    
+ }
+ if(memoryGame.pairsGuessed===24){
+   alert("Game Finished")
+ }
+
+}
+
+
     };
   });
 });
 
-
+  //flip card
+  function flipBack(card){
+    const backCard1 =card.parentElement.querySelector(".back");
+    backCard1.removeAttribute("class")
+    backCard1.setAttribute("class","front")
+    card.removeAttribute("class")
+    card.setAttribute("class","back")
+  }
