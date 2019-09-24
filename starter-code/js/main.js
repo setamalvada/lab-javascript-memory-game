@@ -70,10 +70,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 console.log(memoryGame.pickedCards)
 
+
 if(memoryGame.pickedCards.length==2){
  if(memoryGame.checkIfPair(memoryGame.pickedCards[0].outerHTML,memoryGame.pickedCards[1].outerHTML)===false){
   
-
+  setTimeout(() => {
   flipBack(memoryGame.pickedCards[0])
   flipBack(memoryGame.pickedCards[1])
 
@@ -81,7 +82,7 @@ if(memoryGame.pickedCards.length==2){
     memoryGame.pickedCards.pop()
     memoryGame.pickedCards.pop()
     
-
+  }, 500);
   
 
         
